@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Transaction from './Transaction';
+import TransactionContainer from './TransactionContainer';
 
 export default function TransactionList({ transactions }) {
 	const [sharedTransactions, setSharedTransactions] = useState([]);
@@ -31,8 +31,9 @@ export default function TransactionList({ transactions }) {
 				<div className="tile is-parent is-vertical is-5">
 					{transactions.map((transaction) => {
 						return (
-							<Transaction
+							<TransactionContainer
 								key={transaction.uuid}
+								unsorted
 								transaction={transaction}
 								handleChange={handleChange}
 							/>
@@ -44,17 +45,11 @@ export default function TransactionList({ transactions }) {
 			<div className="tile is-ancestor">
 				<div className="tile is-parent is-vertical is-5">
 					{sharedTransactions.map((transaction) => {
-						const key = `${transaction.date}:${transaction.category}:${transaction.description}:${transaction.amount}`;
 						return (
-							<div key={key} className="tile is-child box">
-								<div>{transaction.date}</div>
-								<div>{transaction.description}</div>
-								<div>{`${
-									transaction.transactionType == 'credit'
-										? ''
-										: '-'
-								}${transaction.amount}`}</div>
-							</div>
+							<TransactionContainer
+								key={transaction.uuid}
+								transaction={transaction}
+							/>
 						);
 					})}
 				</div>
@@ -63,17 +58,11 @@ export default function TransactionList({ transactions }) {
 			<div className="tile is-ancestor">
 				<div className="tile is-parent is-vertical is-5">
 					{soloTransactions.map((transaction) => {
-						const key = `${transaction.date}:${transaction.category}:${transaction.description}:${transaction.amount}`;
 						return (
-							<div key={key} className="tile is-child box">
-								<div>{transaction.date}</div>
-								<div>{transaction.description}</div>
-								<div>{`${
-									transaction.transactionType == 'credit'
-										? ''
-										: '-'
-								}${transaction.amount}`}</div>
-							</div>
+							<TransactionContainer
+								key={transaction.uuid}
+								transaction={transaction}
+							/>
 						);
 					})}
 				</div>
