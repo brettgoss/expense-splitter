@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import csvToJson from 'csvtojson';
 
 import FileUpload from './FileUpload';
+import TransactionList from './TransactionList';
 
 const baseUrl = 'https://mint.intuit.com/transaction.event';
 const baseExportUrl = 'https://mint.intuit.com/transactionDownload.event';
@@ -14,9 +16,8 @@ const novemberTransactions = `?startDate=11/1/2020&endDate=10/30/2020&exclHidden
  * @todo Make links dynamic
  * @todo Full month or half month link granularity (select reporting period)
  */
-export default function App({ transactions, setTransactions }) {
-	const sharedTransactions = [];
-	const soloTransactions = [];
+export default function App() {
+	const [transactions, setTransactions] = useState([]);
 
 	async function handleTransactionUpload(file) {
 		const transactionsRaw = await file.text();
@@ -25,7 +26,7 @@ export default function App({ transactions, setTransactions }) {
 	}
 
 	async function csvToArray(csvString) {
-		return await csvToJson({
+		const transactions = await csvToJson({
 			output: 'json',
 			headers: [
 				'date',
@@ -38,22 +39,20 @@ export default function App({ transactions, setTransactions }) {
 				'labels',
 				'notes',
 			],
-		})
-			.fromString(csvString)
-			.then((csvRow) => {
-				console.log(csvRow);
-				return csvRow;
-			});
+		}).fromString(csvString);
+
+		return transactions.map((transaction) => {
+			transaction.uuid = uuidv4();
+			return transaction;
+		});
 	}
 
 	return (
 		<>
-			<nav className="navbar is-spaced">
-				<div className="container">
-					<div className="navbar-brand">
-						<div className="navbar-item">
-							<h1 className="title is-4">Expense Splitter</h1>
-						</div>
+			<nav className="navbar is-transparent is-spaced">
+				<div className="navbar-brand">
+					<div className="navbar-item">
+						<h1 className="title is-4">Expense Splitter</h1>
 					</div>
 				</div>
 			</nav>
@@ -117,76 +116,7 @@ export default function App({ transactions, setTransactions }) {
 			</section>
 			<section className="section">
 				<div className="container">
-					<h2 className="title is-5">Transactions:</h2>
-					<div className="title is-6">Unsorted</div>
-					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-5">
-							{transactions.map((transaction) => {
-								const key = `${transaction.date}:${transaction.category}:${transaction.description}:${transaction.amount}`;
-								return (
-									<div
-										key={key}
-										className="tile is-child box"
-									>
-										<div>{transaction.date}</div>
-										<div>{transaction.description}</div>
-										<div>{`${
-											transaction.transactionType ==
-											'credit'
-												? ''
-												: '-'
-										}${transaction.amount}`}</div>
-									</div>
-								);
-							})}
-						</div>
-					</div>
-					<div className="title is-6">Shared</div>
-					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-5">
-							{sharedTransactions.map((transaction) => {
-								const key = `${transaction.date}:${transaction.category}:${transaction.description}:${transaction.amount}`;
-								return (
-									<div
-										key={key}
-										className="tile is-child box"
-									>
-										<div>{transaction.date}</div>
-										<div>{transaction.description}</div>
-										<div>{`${
-											transaction.transactionType ==
-											'credit'
-												? ''
-												: '-'
-										}${transaction.amount}`}</div>
-									</div>
-								);
-							})}
-						</div>
-					</div>
-					<div className="title is-6">Solo</div>
-					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-5">
-							{soloTransactions.map((transaction) => {
-								const key = `${transaction.date}:${transaction.category}:${transaction.description}:${transaction.amount}`;
-								return (
-									<div
-										key={key}
-										className="tile is-child box"
-									>
-										<div>{transaction.date}</div>
-										<div>{transaction.description}</div>
-										<div>{`${
-											transaction.transactionType ==
-											'credit'
-												? ''
-												: '-'
-										}${transaction.amount}`}</div>
-									</div>
-								);
-							})}
-						</div>
-					</div>
+					<TransactionList transactions={transactions} />
 				</div>
 			</section>
 		</>

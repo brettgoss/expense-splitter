@@ -42,7 +42,7 @@ export default function FileUpload({
 			await handleFileUpload(file);
 			setFileName(file.name);
 		} catch (e) {
-			console.log('An error occurred while uploading file')
+			console.log('An error occurred while uploading file', e)
 			setError(true);
 		}
 		setLoading(false);
@@ -69,6 +69,7 @@ export default function FileUpload({
 				onClick={() => {
 					fileUploadInput.current.click();
 				}}
+				title="Hint: You can drag and drop a file here"
 			>
 				<label className="file-label">
 					<span className="file-cta">
