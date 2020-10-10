@@ -71,7 +71,7 @@ function TransactionSorter({ uuid, handleSort }) {
 						handleSort(uuid, 'solo');
 					}}
 				/>
-				<span className="ml-1 has-text-danger-dark">Solo</span>
+				<span className="ml-1 has-text-link-dark">Solo</span>
 			</label>
 		</div>
 	);

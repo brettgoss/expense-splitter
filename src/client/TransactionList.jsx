@@ -33,51 +33,65 @@ export default function TransactionList({ transactions, setTransactions }) {
 	return (
 		<>
 			<h2 className="title is-5">Transactions:</h2>
-			<div className="title is-6">Unsorted</div>
-			<div className="tile is-ancestor">
-				<div className="tile is-parent is-vertical is-5">
-					{transactions.map((transaction) => {
-						return (
-							<TransactionCard
-								key={transaction.uuid}
-								unsorted
-								transaction={transaction}
-								handleSort={handleSort}
-							/>
-						);
-					})}
+			<div className="columns">
+				<div className="column">
+					<div className="title is-6">Unsorted</div>
+					<div className="tile is-ancestor">
+						<div className="tile is-parent is-vertical is-10">
+							{transactions.map((transaction) => {
+								return (
+									<TransactionCard
+										key={transaction.uuid}
+										unsorted
+										transaction={transaction}
+										handleSort={handleSort}
+									/>
+								);
+							})}
+						</div>
+					</div>
 				</div>
-			</div>
-			<div className="title is-6">Shared</div>
-			<div className="tile is-ancestor">
-				<div className="tile is-parent is-vertical is-5">
-					{sortedTransactions
-						.filter((transaction) => transaction.type === 'shared')
-						.map((transaction) => {
-							return (
-								<TransactionCard
-									key={transaction.uuid}
-									transaction={transaction}
-									handleUnsort={handleUnsort}
-								/>
-							);
-						})}
+				<div className="column">
+					<div className="title is-6">Shared</div>
+					<div className="tile is-ancestor">
+						<div className="tile is-parent is-vertical is-10">
+							{sortedTransactions
+								.filter(
+									(transaction) =>
+										transaction.type === 'shared',
+								)
+								.map((transaction) => {
+									return (
+										<TransactionCard
+											key={transaction.uuid}
+											transaction={transaction}
+											handleUnsort={handleUnsort}
+										/>
+									);
+								})}
+						</div>
+					</div>
 				</div>
-			</div>
-			<div className="title is-6">Solo</div>
-			<div className="tile is-ancestor">
-				<div className="tile is-parent is-vertical is-5">
-					{sortedTransactions
-						.filter((transaction) => transaction.type === 'solo')
-						.map((transaction) => {
-							return (
-								<TransactionCard
-									key={transaction.uuid}
-									transaction={transaction}
-									handleUnsort={handleUnsort}
-								/>
-							);
-						})}
+				<div className="column">
+					<div className="title is-6">Solo</div>
+					<div className="tile is-ancestor">
+						<div className="tile is-parent is-vertical is-10">
+							{sortedTransactions
+								.filter(
+									(transaction) =>
+										transaction.type === 'solo',
+								)
+								.map((transaction) => {
+									return (
+										<TransactionCard
+											key={transaction.uuid}
+											transaction={transaction}
+											handleUnsort={handleUnsort}
+										/>
+									);
+								})}
+						</div>
+					</div>
 				</div>
 			</div>
 		</>
