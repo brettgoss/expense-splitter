@@ -15,9 +15,23 @@ const novemberTransactions = `?startDate=11/1/2020&endDate=10/30/2020&exclHidden
 /**
  * @todo Make links dynamic
  * @todo Full month or half month link granularity (select reporting period)
+ * @todo Add filters for filtering out debits vs credits
  */
 export default function App() {
-	const [transactions, setTransactions] = useState([]);
+	const [transactions, setTransactions] = useState([
+		{
+			date: '10/08/2020',
+			description: 'Example Transaction',
+			originalDescription: 'Example Transaction',
+			amount: '13.06',
+			transactionType: 'debit',
+			category: 'Interest Income',
+			accountName: 'Your Bank Account',
+			labels: '',
+			notes: '',
+			uuid: '81e69a92-4a86-49b5-a817-b52219e39056',
+		},
+	]);
 
 	async function handleTransactionUpload(file) {
 		const transactionsRaw = await file.text();
@@ -116,7 +130,7 @@ export default function App() {
 			</section>
 			<section className="section">
 				<div className="container">
-					<TransactionList transactions={transactions} />
+					<TransactionList transactions={transactions} setTransactions={setTransactions} />
 				</div>
 			</section>
 		</>
