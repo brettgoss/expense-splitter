@@ -21,15 +21,27 @@ export default function App() {
 	const [transactions, setTransactions] = useState([
 		{
 			date: '10/08/2020',
-			description: 'Example Transaction',
-			originalDescription: 'Example Transaction',
-			amount: '13.06',
-			transactionType: 'debit',
+			description: 'Example Income',
+			originalDescription: 'Example Income',
+			amount: '6.06',
+			transactionType: 'credit',
 			category: 'Interest Income',
 			accountName: 'Your Bank Account',
 			labels: '',
 			notes: '',
 			uuid: '81e69a92-4a86-49b5-a817-b52219e39056',
+		},
+		{
+			date: '10/08/2020',
+			description: 'Example Charge',
+			originalDescription: 'Example Charge',
+			amount: '-11.66',
+			transactionType: 'debit',
+			category: 'Food and Dining',
+			accountName: 'Your Credit Card',
+			labels: '',
+			notes: '',
+			uuid: '91e69a92-4a86-49b5-a817-b52219e39056',
 		},
 	]);
 
@@ -57,6 +69,9 @@ export default function App() {
 
 		return transactions.map((transaction) => {
 			transaction.uuid = uuidv4();
+			if (transaction.transactionType === 'debit') {
+				transaction.amount = 0 - parseFloat(transaction.amount);
+			}
 			return transaction;
 		});
 	}

@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import CurrencyField from './CurrencyField';
 import TransactionCard from './TransactionCard';
 
 export default function TransactionList({ transactions, setTransactions }) {
 	const [sortedTransactions, setSortedTransactions] = useState([]);
+	const sharedTally = calculateTally('shared');
+	const soloTally = calculateTally('solo');
+
+	function calculateTally(tallyType) {
+		let tally = 0.00;
+		sortedTransactions.filter(({ amount, type }) => {
+			if (type === tallyType) {
+				tally += parseFloat(amount);
+			}
+		});
+
+		return tally;
+	}
 
 	function handleSort(transactionId, type) {
 		const transaction = transactions.find(
@@ -53,6 +67,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				</div>
 				<div className="column">
 					<div className="title is-6">Shared</div>
+					<div className="subtitle is-7">Total: <CurrencyField amount={sharedTally} /></div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-10">
 							{sortedTransactions
@@ -74,6 +89,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				</div>
 				<div className="column">
 					<div className="title is-6">Solo</div>
+					<div className="subtitle is-7">Total: <CurrencyField amount={soloTally} /></div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-10">
 							{sortedTransactions

@@ -1,4 +1,5 @@
 import React from 'react';
+import CurrencyField from './CurrencyField';
 
 export default function TransactionCard({
 	transaction: { transactionType, date, amount, uuid, description },
@@ -8,9 +9,9 @@ export default function TransactionCard({
 }) {
 	return (
 		<div className="tile is-child box">
-			<span className="is-size-7 is-pulled-right">{date}</span>
+			<span className="is-size-7 is-italic is-pulled-right">{date}</span>
 			<Amount amount={amount} transactionType={transactionType} />
-			<div className="is-inline">{description}</div>
+			<div>{description}</div>
 
 			{unsorted ? (
 				<TransactionSorter uuid={uuid} handleSort={handleSort} />
@@ -21,16 +22,14 @@ export default function TransactionCard({
 	);
 }
 
-function Amount({ transactionType, amount }) {
-	const isCharge = transactionType === 'debit';
+function Amount({ amount }) {
+	const isCharge = amount < 0;
 	const amountClasses = `is-size-4 has-text${
 		isCharge ? '-danger' : '-success'
 	}`;
 
 	return (
-		<div className={amountClasses}>{`${
-			isCharge ? '-' : '+'
-		}$${amount}`}</div>
+		<div className={amountClasses}><CurrencyField amount={amount} /></div>
 	);
 }
 
