@@ -5,6 +5,7 @@
 	"author": "Brett Goss <goss.brett@gmail.com>",
 	"license": "MIT",
 	"main": "src/server/index.js",
+	"homepage": ".",
 	"scripts": {
 		"build": "webpack --mode production",
 		"server": "nodemon src/server/index.js",
