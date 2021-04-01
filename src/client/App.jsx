@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import csvToJson from 'csvtojson';
 
+import ExportLinks from './ExportLinks';
 import FileUpload from './FileUpload';
 import TransactionList from './TransactionList';
-
-const baseUrl = 'https://mint.intuit.com/transaction.event';
-const baseExportUrl = 'https://mint.intuit.com/transactionDownload.event';
-
-const septemberTransactions = `?startDate=09/1/2020&endDate=09/30/2020&exclHidden=T`;
-const octoberTransactions = `?startDate=10/1/2020&endDate=10/31/2020&exclHidden=T`;
-const novemberTransactions = `?startDate=11/1/2020&endDate=10/30/2020&exclHidden=T`;
 
 /**
  * @todo Make links dynamic
@@ -92,38 +86,7 @@ export default function App() {
 						Start by exporting your transactions from Mint. Here are
 						some links to help get you started:
 					</h3>
-					<div className="buttons">
-						<a
-							className="button is-link"
-							href={`${baseUrl}${septemberTransactions}`}
-							target="_blank"
-						>
-							<span>Mint - September 2020</span>
-							<span className="icon">
-								<i className="fas fa-external-link-alt"></i>
-							</span>
-						</a>
-						<a
-							className="button is-link"
-							href={`${baseUrl}${octoberTransactions}`}
-							target="_blank"
-						>
-							<span>Mint - October 2020</span>
-							<span className="icon">
-								<i className="fas fa-external-link-alt"></i>
-							</span>
-						</a>
-						<a
-							className="button is-link"
-							href={`${baseUrl}${novemberTransactions}`}
-							target="_blank"
-						>
-							<span>Mint - November 2020</span>
-							<span className="icon">
-								<i className="fas fa-external-link-alt"></i>
-							</span>
-						</a>
-					</div>
+					<ExportLinks />
 				</div>
 			</section>
 			<section className="section">
@@ -133,7 +96,7 @@ export default function App() {
 						them below.
 					</h2>
 					<h3 className="subtitle">
-						Don't worry, nothing you import is saved anywhere
+						Don&apos;t worry, nothing you import is saved anywhere
 						outside of your browser.
 					</h3>
 					<FileUpload
