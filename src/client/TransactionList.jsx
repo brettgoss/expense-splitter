@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import CurrencyField from './CurrencyField';
 import TransactionCard from './TransactionCard';
 
+TransactionList.propTypes = {
+	transactions: PropTypes.arrayOf(
+		PropTypes.shape({
+			transactionType: PropTypes.string,
+			date: PropTypes.string,
+			amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+			uuid: PropTypes.string,
+			description: PropTypes.string,
+		}),
+	),
+	setTransactions: PropTypes.func,
+};
 export default function TransactionList({ transactions, setTransactions }) {
 	const [sortedTransactions, setSortedTransactions] = useState([]);
 	const sharedTally = calculateTally('shared');
 	const soloTally = calculateTally('solo');
 
 	function calculateTally(tallyType) {
-		let tally = 0.00;
+		let tally = 0.0;
 		sortedTransactions.filter(({ amount, type }) => {
 			if (type === tallyType) {
 				tally += parseFloat(amount);
@@ -67,7 +80,9 @@ export default function TransactionList({ transactions, setTransactions }) {
 				</div>
 				<div className="column">
 					<div className="title is-6">Shared</div>
-					<div className="subtitle is-7">Total: <CurrencyField amount={sharedTally} /></div>
+					<div className="subtitle is-7">
+						Total: <CurrencyField amount={sharedTally} />
+					</div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-10">
 							{sortedTransactions
@@ -89,7 +104,9 @@ export default function TransactionList({ transactions, setTransactions }) {
 				</div>
 				<div className="column">
 					<div className="title is-6">Solo</div>
-					<div className="subtitle is-7">Total: <CurrencyField amount={soloTally} /></div>
+					<div className="subtitle is-7">
+						Total: <CurrencyField amount={soloTally} />
+					</div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-10">
 							{sortedTransactions

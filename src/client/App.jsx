@@ -7,7 +7,6 @@ import FileUpload from './FileUpload';
 import TransactionList from './TransactionList';
 
 /**
- * @todo Make links dynamic
  * @todo Full month or half month link granularity (select reporting period)
  * @todo Add filters for filtering out debits vs credits
  */

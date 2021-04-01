@@ -1,5 +1,12 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 
+FileUpload.propTypes = {
+	handleFileUpload: PropTypes.func,
+	errorText: PropTypes.string,
+	mainText: PropTypes.string,
+	acceptedTypes: PropTypes.arrayOf(PropTypes.string),
+};
 export default function FileUpload({
 	handleFileUpload,
 	errorText = 'Invalid file type',
@@ -7,6 +14,7 @@ export default function FileUpload({
 	acceptedTypes = ['text/csv'],
 }) {
 	const fileUploadInput = useRef();
+	// eslint-disable-next-line no-unused-vars
 	const [dragging, setDragging] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
@@ -41,8 +49,8 @@ export default function FileUpload({
 			setError(false);
 			await handleFileUpload(file);
 			setFileName(file.name);
-		} catch (e) {
-			console.log('An error occurred while uploading file', e)
+		} catch (error) {
+			console.log('An error occurred while uploading file', error);
 			setError(true);
 		}
 		setLoading(false);

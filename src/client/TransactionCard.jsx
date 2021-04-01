@@ -1,6 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import CurrencyField from './CurrencyField';
 
+TransactionCard.propTypes = {
+	transaction: PropTypes.shape({
+		transactionType: PropTypes.string,
+		date: PropTypes.string,
+		amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		uuid: PropTypes.string,
+		description: PropTypes.string,
+	}),
+	unsorted: PropTypes.bool,
+	handleSort: PropTypes.func,
+	handleUnsort: PropTypes.func,
+};
 export default function TransactionCard({
 	transaction: { transactionType, date, amount, uuid, description },
 	unsorted = false,
@@ -22,6 +36,9 @@ export default function TransactionCard({
 	);
 }
 
+Amount.propTypes = {
+	amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
 function Amount({ amount }) {
 	const isCharge = amount < 0;
 	const amountClasses = `is-size-4 has-text${
@@ -29,10 +46,16 @@ function Amount({ amount }) {
 	}`;
 
 	return (
-		<div className={amountClasses}><CurrencyField amount={amount} /></div>
+		<div className={amountClasses}>
+			<CurrencyField amount={amount} />
+		</div>
 	);
 }
 
+TransactionUnsorter.propTypes = {
+	uuid: PropTypes.string,
+	handleUnsort: PropTypes.func,
+};
 function TransactionUnsorter({ uuid, handleUnsort }) {
 	return (
 		<button
@@ -49,6 +72,10 @@ function TransactionUnsorter({ uuid, handleUnsort }) {
 	);
 }
 
+TransactionSorter.propTypes = {
+	uuid: PropTypes.string,
+	handleSort: PropTypes.func,
+};
 function TransactionSorter({ uuid, handleSort }) {
 	return (
 		<div className="control is-inline-block is-pulled-right">
@@ -56,7 +83,7 @@ function TransactionSorter({ uuid, handleSort }) {
 				<input
 					type="radio"
 					name={uuid}
-					onChange={(e) => {
+					onChange={() => {
 						handleSort(uuid, 'shared');
 					}}
 				/>
@@ -66,7 +93,7 @@ function TransactionSorter({ uuid, handleSort }) {
 				<input
 					type="radio"
 					name={uuid}
-					onChange={(e) => {
+					onChange={() => {
 						handleSort(uuid, 'solo');
 					}}
 				/>

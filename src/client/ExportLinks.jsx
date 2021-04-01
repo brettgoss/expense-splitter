@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
 	format,
 	startOfMonth,
@@ -30,6 +32,10 @@ export default function ExportLinks() {
 	);
 }
 
+ExportLink.propTypes = {
+	startDate: PropTypes.instanceOf(Date).isRequired,
+	endDate: PropTypes.instanceOf(Date).isRequired,
+};
 function ExportLink({ startDate, endDate }) {
 	function dateForMint(date) {
 		return format(new Date(date), 'MM/d/yyyy');
