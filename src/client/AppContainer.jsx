@@ -1,4 +1,3 @@
-import 'bulma/css/bulma.css';
 import './App.scss';
 
 import App from './App';

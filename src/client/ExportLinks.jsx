@@ -4,7 +4,6 @@ import {
 	format,
 	startOfMonth,
 	endOfMonth,
-	addMonths,
 	subMonths,
 } from 'date-fns';
 
@@ -15,17 +14,16 @@ export default function ExportLinks() {
 	return (
 		<div className="buttons">
 			<ExportLink
+				startDate={startOfMonth(subMonths(new Date(), 2))}
+				endDate={endOfMonth(subMonths(new Date(), 2))}
+			/>
+			<ExportLink
 				startDate={startOfMonth(subMonths(new Date(), 1))}
 				endDate={endOfMonth(subMonths(new Date(), 1))}
 			/>
 			<ExportLink
 				startDate={startOfMonth(new Date())}
 				endDate={endOfMonth(new Date())}
-			/>
-
-			<ExportLink
-				startDate={startOfMonth(addMonths(new Date(), 1))}
-				endDate={endOfMonth(addMonths(new Date(), 1))}
 			/>
 		</div>
 	);

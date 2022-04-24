@@ -77,27 +77,40 @@ TransactionSorter.propTypes = {
 };
 function TransactionSorter({ uuid, handleSort }) {
 	return (
-		<div className="control is-inline-block is-pulled-right">
-			<label className="radio mr-5">
-				<input
-					type="radio"
+		<div className="columns mt-1">
+			<div className="column">
+				<button
+					className="button is-small is-info"
 					name={uuid}
-					onChange={() => {
+					onClick={() => {
+						handleSort(uuid, 'theirs');
+					}}
+				>
+					Theirs
+				</button>
+			</div>
+			<div className="column">
+				<button
+					className="button is-small is-warning"
+					name={uuid}
+					onClick={() => {
 						handleSort(uuid, 'shared');
 					}}
-				/>
-				<span className="ml-1 has-text-success-dark">Shared</span>
-			</label>
-			<label className="radio">
-				<input
-					type="radio"
+				>
+					Shared
+				</button>
+			</div>
+			<div className="column">
+				<button
+					className="button is-small is-success"
 					name={uuid}
-					onChange={() => {
-						handleSort(uuid, 'solo');
+					onClick={() => {
+						handleSort(uuid, 'mine');
 					}}
-				/>
-				<span className="ml-1 has-text-link-dark">Solo</span>
-			</label>
+				>
+					Mine
+				</button>
+			</div>
 		</div>
 	);
 }

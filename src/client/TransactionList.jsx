@@ -18,8 +18,9 @@ TransactionList.propTypes = {
 };
 export default function TransactionList({ transactions, setTransactions }) {
 	const [sortedTransactions, setSortedTransactions] = useState([]);
+	const theirsTally = calculateTally('theirs');
 	const sharedTally = calculateTally('shared');
-	const soloTally = calculateTally('solo');
+	const mineTally = calculateTally('mine');
 
 	function calculateTally(tallyType) {
 		let tally = 0.0;
@@ -64,7 +65,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				<div className="column">
 					<div className="title is-6">Unsorted</div>
 					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-10">
+						<div className="tile is-parent is-vertical is-12">
 							{transactions.map((transaction) => {
 								return (
 									<TransactionCard
@@ -78,13 +79,37 @@ export default function TransactionList({ transactions, setTransactions }) {
 						</div>
 					</div>
 				</div>
+				<div className="column has-background-light">
+					<div className="title is-6">Theirs</div>
+					<div className="subtitle is-7">
+						Total: <CurrencyField amount={theirsTally} />
+					</div>
+					<div className="tile is-ancestor">
+						<div className="tile is-parent is-vertical is-12">
+							{sortedTransactions
+								.filter(
+									(transaction) =>
+										transaction.type === 'theirs',
+								)
+								.map((transaction) => {
+									return (
+										<TransactionCard
+											key={transaction.uuid}
+											transaction={transaction}
+											handleUnsort={handleUnsort}
+										/>
+									);
+								})}
+						</div>
+					</div>
+				</div>
 				<div className="column">
 					<div className="title is-6">Shared</div>
 					<div className="subtitle is-7">
 						Total: <CurrencyField amount={sharedTally} />
 					</div>
 					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-10">
+						<div className="tile is-parent is-vertical is-12">
 							{sortedTransactions
 								.filter(
 									(transaction) =>
@@ -102,17 +127,17 @@ export default function TransactionList({ transactions, setTransactions }) {
 						</div>
 					</div>
 				</div>
-				<div className="column">
-					<div className="title is-6">Solo</div>
+				<div className="column has-background-light">
+					<div className="title is-6">Mine</div>
 					<div className="subtitle is-7">
-						Total: <CurrencyField amount={soloTally} />
+						Total: <CurrencyField amount={mineTally} />
 					</div>
 					<div className="tile is-ancestor">
-						<div className="tile is-parent is-vertical is-10">
+						<div className="tile is-parent is-vertical is-12">
 							{sortedTransactions
 								.filter(
 									(transaction) =>
-										transaction.type === 'solo',
+										transaction.type === 'mine',
 								)
 								.map((transaction) => {
 									return (

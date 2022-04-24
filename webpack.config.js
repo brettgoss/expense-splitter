@@ -20,15 +20,15 @@ module.exports = {
 				},
 			},
 			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
+				test: /\.(sc|c)ss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader'],
 			},
 			{
 				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
 				loader: 'url-loader',
 				options: {
-					limit: 100000
-				}
+					limit: 100000,
+				},
 			},
 		],
 	},
