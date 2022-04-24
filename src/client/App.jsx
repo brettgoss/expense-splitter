@@ -78,38 +78,68 @@ export default function App() {
 					</div>
 				</div>
 			</nav>
-			<section className="section">
-				<div className="container">
-					<h2 className="title is-5">Welcome to Expense Splitter!</h2>
-					<h3 className="subtitle">
-						Start by exporting your transactions from Mint. Here are
-						some links to help get you started:
-					</h3>
-					<ExportLinks />
+			<main className="">
+				<section className="section my-5">
+					<div className="container">
+						<h2 className="title is-5">
+							Welcome to Expense Splitter!
+						</h2>
+						<h3 className="subtitle">
+							Start by exporting your transactions from Mint. Here
+							are some links to help get you started:
+						</h3>
+						<ExportLinks />
+					</div>
+				</section>
+				<section className="section my-5">
+					<div className="container">
+						<h2 className="title is-5">
+							Great! Once you have some transactions, you can
+							import them below.
+						</h2>
+						<h3 className="subtitle">
+							Don&apos;t worry, nothing you import is saved
+							anywhere outside of your browser.
+						</h3>
+						<FileUpload
+							handleFileUpload={async (file) =>
+								await handleTransactionUpload(file)
+							}
+						/>
+					</div>
+				</section>
+				<section className="section">
+					<div className="container">
+						<TransactionList
+							transactions={transactions}
+							setTransactions={setTransactions}
+						/>
+					</div>
+				</section>
+			</main>
+			<footer className="footer py-5 mt-6">
+				<div className="content has-text-centered">
+					<p>
+						<strong>
+							<a
+								href="https://github.com/brettgoss/expense-splitter"
+								target="_blank"
+							>
+								Expense Splitter
+							</a>
+						</strong>{' '}
+						made with{' '}
+						<span className="icon has-text-danger">
+							<i className="fas fa-heart"></i>
+						</span>{' '}
+						by{' '}
+						<a href="https://github.com/brettgoss" target="_blank">
+							Brett Goss
+						</a>
+						.
+					</p>
 				</div>
-			</section>
-			<section className="section">
-				<div className="container">
-					<h2 className="title is-5">
-						Great! Once you have some transactions, you can import
-						them below.
-					</h2>
-					<h3 className="subtitle">
-						Don&apos;t worry, nothing you import is saved anywhere
-						outside of your browser.
-					</h3>
-					<FileUpload
-						handleFileUpload={async (file) =>
-							await handleTransactionUpload(file)
-						}
-					/>
-				</div>
-			</section>
-			<section className="section">
-				<div className="container">
-					<TransactionList transactions={transactions} setTransactions={setTransactions} />
-				</div>
-			</section>
+			</footer>
 		</>
 	);
 }
