@@ -35,7 +35,7 @@ ExportLink.propTypes = {
 };
 function ExportLink({ startDate, endDate }) {
 	function dateForMint(date) {
-		return format(new Date(date), 'MM/d/yyyy');
+		return format(new Date(date), 'yyyy-MM-dd');
 	}
 
 	return (
