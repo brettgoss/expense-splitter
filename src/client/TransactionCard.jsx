@@ -24,7 +24,7 @@ export default function TransactionCard({
 		<div className="tile is-child box">
 			<span className="is-size-7 is-italic is-pulled-right">{date}</span>
 			<Amount amount={amount} transactionType={transactionType} />
-			<div>{description}</div>
+			<div className='transaction-description'>{description}</div>
 
 			{unsorted ? (
 				<TransactionSorter uuid={uuid} handleSort={handleSort} />
