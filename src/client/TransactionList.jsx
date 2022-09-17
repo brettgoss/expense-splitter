@@ -82,7 +82,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				<div className="column has-background-light">
 					<div className="title is-6">Theirs</div>
 					<div className="subtitle is-7">
-						Total: <CurrencyField amount={theirsTally} />
+						<CurrencyField amount={theirsTally} />
 					</div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-12">
@@ -106,7 +106,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				<div className="column">
 					<div className="title is-6">Shared</div>
 					<div className="subtitle is-7">
-						Total: <CurrencyField amount={sharedTally} />
+						<CurrencyField amount={sharedTally} /> / 2 = <CurrencyField amount={sharedTally / 2} />
 					</div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-12">
@@ -130,7 +130,7 @@ export default function TransactionList({ transactions, setTransactions }) {
 				<div className="column has-background-light">
 					<div className="title is-6">Mine</div>
 					<div className="subtitle is-7">
-						Total: <CurrencyField amount={mineTally} />
+						<CurrencyField amount={mineTally} />
 					</div>
 					<div className="tile is-ancestor">
 						<div className="tile is-parent is-vertical is-12">
