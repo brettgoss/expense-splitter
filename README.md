@@ -12,6 +12,6 @@ A lightweight webapp for splitting expenses.
 
 1. Install the packages and start the dev server
 
-    `yarn && yarn start`
+    `yarn && yarn client`
 
 1. All done!
