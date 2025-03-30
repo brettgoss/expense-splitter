@@ -2,7 +2,7 @@
 	"name": "expense-splitter",
 	"version": "1.0.0",
 	"repository": "git@github.com:brettgoss/expense-splitter.git",
-	"author": "Brett Goss <goss.brett@gmail.com>",
+	"author": "Brett Goss",
 	"license": "MIT",
 	"main": "src/server/index.js",
 	"homepage": ".",
